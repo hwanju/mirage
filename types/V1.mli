@@ -576,6 +576,9 @@ module type TCPV4 = sig
   (** [input t listeners] defines a mapping of threads that are willing to
       accept new flows on a given port.  If the [callback] returns [None],
       the input function will return an RST to refuse connections on a port. *)
+
+  val get_state: t -> string -> string option
+  val set_state: t -> listeners:(int -> callback option) -> string -> string option
 end
 
 module type STACKV4 = sig
@@ -668,6 +671,9 @@ module type STACKV4 = sig
   (** [listen t] will cause the stack to listen for traffic on the
       network interface associated with the stack, and demultiplex
       traffic to the appropriate callbacks. *)
+
+  val get_state: t -> string -> string option
+  val set_state: t -> string -> string option
 end
 
 module type CHANNEL = sig
