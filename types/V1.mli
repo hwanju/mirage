@@ -581,6 +581,7 @@ module type TCPV4 = sig
   val set_state: t -> listeners:(int -> callback option) -> string -> string option
   val string_of_id : flow -> string
   (** it may be duplicate with get_dest but for now needs customized id string *)
+  exception Write_suspended of int
 end
 
 module type STACKV4 = sig
@@ -756,6 +757,8 @@ module type CHANNEL = sig
 
   val get_request  : t -> string option
   val set_request  : t -> string option -> unit
+  val get_response : t -> string option
+  val set_response : t -> string option -> unit
   val get_state    : t -> t -> string
   val set_state    : t -> t -> string -> unit
 end
